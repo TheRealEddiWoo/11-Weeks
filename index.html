@@ -1,0 +1,881 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Eleven Weeks</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Eleven Weeks">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#F4F6F6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#101416" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAACKklEQVR4Xu3XwWkCURRA0TGkAdNEyCJFaQWmknSQplyITaSGLNwMjhIuMxiYnLN8/JHB/7jiZrs7DHDLk6+FeywHloNOOVAOOuVAOeiUA+WgUw6Ug045UA465UA56JQD5aBTDpSDTjlQDjrlQDnolAPloFMOlINOOVAOOuVAOeiUA+WgUw6Ug045UA465UA56JQD5aBTDpSDTjlQDjrlQDnolAPloFMOlINOOVAOOuVAOeie+yO/+/76HB962X9Mn3nkmfe31/ELHE/n6fus9cwcy/+sXN36MPzx5OrWh+EfTWZaeDmmm3Exnj/yzHQzLsbztZ6Zb+HlYE0sB3dZDiwHnXKgHHTKgXLQKQfKQaccKAedcqAcdMqBctApB8pBpxwoB51yoBx0yoFy0CkHykGnHCgHnXKgHHTKgXLQKQfKQaccKAedcqAcdMqBctApB8pBpxwoB51yoBx0yoFy0CkHykGnHCgHnXKgHHTKgXLQKQfKQaccKAedcqAcdMqBctAtXI6X/cfNdxjPH3nmeDrffJ/xfK1n5lt4OYbhxt1Pt+GRk+nd/5/JTJvt7jDzI1ir5cvBalgO/FuhUw6Ug045UA465UA56JQD5aBTDpSDTjlQDjrlQDnolAPloFMOlINOOVAOOuVAOeiUA+WgUw6Ug045UA465UA56JQD5aBTDpSDTjlQDjrlQDnolAPloFMOlINOOVAOOuVAOeiUA+WgUw6Ug045uOsHT/ioLQMXmfAAAAAASUVORK5CYII=">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout: one narrow column of stacked cards, phone-first, 620px cap */
+:root{
+  --bg:#F4F6F6; --surface:#FFFFFF; --sunk:#EDF0F0;
+  --ink:#13191B; --muted:#5C686C; --faint:#8A9699;
+  --line:#DDE3E3; --line-soft:#E9EDED;
+  --accent:#116170; --accent-soft:#E2EFF1; --accent-ink:#0B4A56;
+  --gold:#8A6212; --over:#A1392C;
+  --display:'Archivo',system-ui,sans-serif;
+  --body:'Inter',system-ui,-apple-system,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#101416; --surface:#181E20; --sunk:#141A1C;
+  --ink:#E7ECED; --muted:#98A4A8; --faint:#73807F;
+  --line:#283033; --line-soft:#212829;
+  --accent:#4FB8CB; --accent-soft:#16333A; --accent-ink:#9EDCE8;
+  --gold:#D4A64A; --over:#E58574;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#101416; --surface:#181E20; --sunk:#141A1C;
+  --ink:#E7ECED; --muted:#98A4A8; --faint:#73807F;
+  --line:#283033; --line-soft:#212829;
+  --accent:#4FB8CB; --accent-soft:#16333A; --accent-ink:#9EDCE8;
+  --gold:#D4A64A; --over:#E58574;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;-webkit-text-size-adjust:100%;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.wrap{max-width:620px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px;display:flex;flex-direction:column;gap:14px}
+h1,h2{font-family:var(--display);margin:0;text-wrap:balance;letter-spacing:-.015em}
+p{margin:0}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+.num{font-variant-numeric:tabular-nums}
+
+.head{display:flex;flex-direction:column;gap:10px;padding-block:4px 2px}
+.eyebrow{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);font-weight:500}
+.head h1{font-size:27px;font-weight:700;line-height:1.1}
+.head .sub{font-size:13.5px;color:var(--muted)}
+.bars{display:flex;gap:3px;margin-top:2px}
+.bars i{flex:1;height:5px;border-radius:2px;background:var(--line);display:block}
+.bars i.on{background:var(--accent)}
+.bars i.now{background:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px}
+.card > h2{font-size:16px;font-weight:600;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.tag{font-family:var(--body);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-ink);background:var(--accent-soft);padding:3px 7px;border-radius:5px;font-weight:600}
+.cardsub{font-size:13px;color:var(--muted);margin-top:4px}
+
+.rows{display:flex;flex-direction:column;margin-top:12px}
+.row{display:flex;gap:11px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line-soft)}
+.row:first-child{border-top:0;padding-top:4px}
+.row input[type=checkbox]{appearance:none;-webkit-appearance:none;width:20px;height:20px;flex:none;margin:1px 0 0;border:1.5px solid var(--line);border-radius:6px;background:var(--surface);position:relative;cursor:pointer;transition:background .12s,border-color .12s}
+.row input[type=checkbox]:checked{background:var(--accent);border-color:var(--accent)}
+.row input[type=checkbox]:checked::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(42deg)}
+.row label{flex:1;min-width:0;cursor:pointer}
+.row .nm{font-weight:500;font-size:14.5px}
+.row .px{font-size:12.5px;color:var(--muted);margin-top:1px;font-variant-numeric:tabular-nums}
+.row.done .nm,.row.done .px{color:var(--faint)}
+.row.done .nm{text-decoration:line-through;text-decoration-color:var(--line)}
+
+.swap{margin-top:12px;padding-top:11px;border-top:1px solid var(--line-soft);display:flex;align-items:center;justify-content:space-between;gap:10px}
+.swap span{font-size:12.5px;color:var(--muted)}
+.chip{background:var(--sunk);border:1px solid var(--line);color:var(--ink);padding:5px 10px;border-radius:7px;font-size:12.5px;font-weight:500}
+
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:13px}
+.stat{background:var(--sunk);border-radius:10px;padding:10px}
+.stat b{display:block;font-family:var(--display);font-size:19px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.2}
+.stat em{display:block;font-style:normal;font-size:11px;color:var(--muted);margin-top:2px}
+
+.field{display:flex;gap:8px;margin-top:13px;flex-wrap:wrap}
+input[type=text],input[type=number],textarea{flex:1;min-width:0;font:inherit;font-size:16px;color:var(--ink);background:var(--sunk);border:1px solid var(--line);border-radius:9px;padding:10px 12px;resize:vertical}
+input::placeholder,textarea::placeholder{color:var(--faint)}
+.go{background:var(--accent);color:#fff;border:0;border-radius:9px;padding:10px 16px;font-weight:600;font-size:14.5px;flex:none}
+.ghost{background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:7px 11px;font-size:13px;font-weight:500}
+
+.meter{margin-top:13px}
+.mlab{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;gap:8px}
+.mlab span:first-child{color:var(--muted)}
+.mlab b{font-weight:600;font-variant-numeric:tabular-nums;font-family:var(--display);font-size:15px}
+.track{height:7px;border-radius:4px;background:var(--sunk);margin-top:6px;overflow:hidden;position:relative}
+.fill{height:100%;background:var(--accent);border-radius:4px;width:0;transition:width .3s ease}
+.fill.g{background:var(--gold)}
+.fill.over{background:var(--over)}
+.band{position:absolute;top:0;bottom:0;border-left:1.5px dashed var(--faint);opacity:.7}
+
+.items{display:flex;flex-direction:column;margin-top:12px}
+.item{display:flex;gap:10px;align-items:baseline;padding:9px 0;border-top:1px solid var(--line-soft)}
+.item .t{flex:1;min-width:0;font-size:14px}
+.item .t small{display:block;color:var(--faint);font-size:11.5px;margin-top:1px}
+.item .v{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.item .x{background:none;border:0;color:var(--faint);font-size:17px;line-height:1;padding:0 2px}
+
+.note{font-size:12.5px;color:var(--muted);margin-top:11px}
+.note.warn{color:var(--over)}
+svg.spark{display:block;width:100%;height:52px;margin-top:13px}
+.foot{font-size:12px;color:var(--faint);text-align:center;padding-top:4px;display:flex;flex-direction:column;gap:7px;align-items:center}
+.foot .links{display:flex;gap:14px}
+.foot button{background:none;border:0;color:var(--muted);font-size:12px;text-decoration:underline;padding:0}
+.hidden{display:none}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="head">
+    <p class="eyebrow" id="today">&mdash;</p>
+    <h1 id="phase">Eleven Weeks</h1>
+    <p class="sub" id="phasesub">73.6 kg to 66 kg &middot; 30-minute jog &middot; pelvis back to neutral</p>
+    <div class="bars" id="bars"></div>
+  </header>
+
+  <section class="card" id="sessionCard">
+    <h2><span id="sessionName">Today</span> <span class="tag" id="sessionTag"></span></h2>
+    <p class="cardsub" id="sessionSub"></p>
+    <div class="rows" id="sessionRows"></div>
+    <div class="swap" id="swapWrap">
+      <span id="swapLabel">Using dumbbells</span>
+      <button class="chip" id="swapBtn" type="button">Switch to bodyweight</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Posture routine <span class="tag">every day &middot; 8 min</span></h2>
+    <p class="cardsub">On run days, do this after the session.</p>
+    <div class="rows" id="postureRows"></div>
+  </section>
+
+  <section class="card">
+    <h2>Weight</h2>
+    <p class="cardsub">Morning, after the bathroom, before food. The 7-day average is the real number.</p>
+    <div class="field">
+      <input type="number" id="kgInput" step="0.1" min="30" max="200" inputmode="decimal" placeholder="73.6" aria-label="Weight in kilograms">
+      <button class="go" id="kgSave" type="button">Log kg</button>
+    </div>
+    <div class="stats">
+      <div class="stat"><b class="num" id="sToday">&mdash;</b><em>Today</em></div>
+      <div class="stat"><b class="num" id="sAvg">&mdash;</b><em>7-day avg</em></div>
+      <div class="stat"><b class="num" id="sTarget">&mdash;</b><em id="sTargetLab">Target</em></div>
+    </div>
+    <svg class="spark" id="spark" viewBox="0 0 300 52" preserveAspectRatio="none" aria-hidden="true"></svg>
+    <p class="note" id="kgNote">No weigh-ins logged yet. Log one to start the trend.</p>
+  </section>
+
+  <section class="card">
+    <h2>Food today</h2>
+    <p class="cardsub">Describe what you ate. Weights and cup measures give the closest estimate.</p>
+    <div class="field">
+      <textarea id="foodInput" rows="2" placeholder="150g chicken breast, a cup of brown rice, 200g veg with a teaspoon of olive oil"></textarea>
+    </div>
+    <div class="field" style="margin-top:8px">
+      <button class="go" id="foodAdd" type="button">Estimate and add</button>
+      <button class="ghost" id="manualBtn" type="button">Enter kJ myself</button>
+    </div>
+    <div class="field hidden" id="manualRow">
+      <input type="text" id="mLabel" placeholder="What it was" aria-label="Food name">
+      <input type="number" id="mKj" placeholder="kJ" inputmode="numeric" style="max-width:88px" aria-label="Kilojoules">
+      <input type="number" id="mPro" placeholder="g pro" inputmode="numeric" style="max-width:88px" aria-label="Protein grams">
+      <button class="go" id="mSave" type="button">Add</button>
+    </div>
+
+    <div class="meter">
+      <div class="mlab"><span>Energy</span><b class="num" id="kjLab">0 / 6,100 kJ</b></div>
+      <div class="track"><div class="fill" id="kjFill"></div></div>
+    </div>
+    <div class="meter">
+      <div class="mlab"><span>Protein</span><b class="num" id="proLab">0 / 118&ndash;147 g</b></div>
+      <div class="track"><div class="fill g" id="proFill"></div><i class="band" id="proBand"></i></div>
+    </div>
+
+    <div class="items" id="foodItems"></div>
+    <p class="note" id="foodNote">Nothing logged today.</p>
+  </section>
+
+  <div class="foot">
+    <p>Week 1 begins Monday 16 November 2026 &middot; Week 11 ends Sunday 31 January 2027</p>
+    <div class="links">
+      <button id="backupBtn" type="button">Back up data</button>
+      <button id="restoreBtn" type="button">Restore</button>
+    </div>
+    <p id="storeNote"></p>
+    <input type="file" id="restoreFile" accept="application/json,.json" class="hidden">
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ============ plan ============ */
+var START = new Date(2026,10,16);
+var WEEKS = 11, W_START = 73.6, W_END = 66.0;
+var KJ_TARGET = 6100, PRO_LO = 118, PRO_HI = 147;
+
+var DAYNAME=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+var MONTH=["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+var POSTURE=[
+  {id:"p1",nm:"Couch stretch",px:"2 × 45s each side · 15s rest"},
+  {id:"p2",nm:"90/90 hip lift with exhale",px:"2 × 8 · 3s hold · 30s rest"},
+  {id:"p3",nm:"Glute bridge",px:"2 × 15 · 2s squeeze · 30s rest"}
+];
+var A_DB=[
+  {id:"a1",nm:"Dumbbell Romanian deadlift",px:"3 × 10 · 3-1-1 · 90s"},
+  {id:"a2",nm:"Goblet squat",px:"3 × 12 · 2-1-1 · 90s"},
+  {id:"a3",nm:"Glute bridge, dumbbell on hips",px:"3 × 15 · 2s squeeze · 60s"},
+  {id:"a4",nm:"Lying leg raise",px:"3 × 12–15 · 2-1-2 · 45s"},
+  {id:"a5",nm:"Bird dog",px:"3 × 8 each side · 2s hold · 45s"},
+  {id:"a6",nm:"Plank, pelvis tucked under",px:"3 × 40–60s · 45s"},
+  {id:"a7",nm:"Side plank",px:"2 × 25–30s each side · 45s"},
+  {id:"a8",nm:"Standing dumbbell curl",px:"2 × 10–12 · 3s lower · 60s"}
+];
+var A_BW=[
+  {id:"a1",nm:"Bodyweight hip hinge",px:"3 × 10 · 3-1-1 · 90s"},
+  {id:"a2",nm:"Bodyweight squat",px:"3 × 15 · 2-1-1 · 90s"},
+  {id:"a3",nm:"Single-leg glute bridge",px:"3 × 10 each side · 2s squeeze · 60s"},
+  {id:"a4",nm:"Lying leg raise",px:"3 × 12–15 · 2-1-2 · 45s"},
+  {id:"a5",nm:"Bird dog",px:"3 × 8 each side · 2s hold · 45s"},
+  {id:"a6",nm:"Plank, pelvis tucked under",px:"3 × 40–60s · 45s"},
+  {id:"a7",nm:"Side plank",px:"2 × 25–30s each side · 45s"},
+  {id:"a8",nm:"Pike push-up",px:"3 × 8–10 · 60s"}
+];
+var C_DB=[
+  {id:"c1",nm:"Bent-over dumbbell row",px:"3 × 10–12 · 60s"},
+  {id:"c2",nm:"Standing dumbbell curl",px:"3 × 10–12 · 3s lower · 60s"},
+  {id:"c3",nm:"Hammer curl",px:"2 × 12 · 3s lower · 60s"},
+  {id:"c4",nm:"Diamond push-up",px:"3 × 10–12 · 2-1-1 · 60s"},
+  {id:"c5",nm:"Weighted crunch",px:"3 × 15 · 2-1-2 · 45s"}
+];
+var C_BW=[
+  {id:"c1",nm:"Towel row on a door handle",px:"3 × 20–30s hold · 60s"},
+  {id:"c2",nm:"Prone Y-T-W raises",px:"3 × 8 of each shape · 45s"},
+  {id:"c3",nm:"Diamond push-up",px:"3 × 10–12 · 60s"},
+  {id:"c4",nm:"Pike push-up",px:"3 × 8–10 · 60s"},
+  {id:"c5",nm:"Bicycle crunch",px:"3 × 20 total · 45s"}
+];
+var SAT_CORE=[
+  {id:"s1",nm:"Dead bug",px:"3 × 10 each side · 45s"},
+  {id:"s2",nm:"Bicycle crunch",px:"3 × 20 total · 45s"}
+];
+function runBlock(w){
+  w=Math.min(Math.max(w,1),11);
+  if(w<=2) return {txt:"8 × (1 min jog / 2 min walk)",jog:8};
+  if(w<=4) return {txt:"8 × (2 min jog / 1 min walk)",jog:16};
+  if(w<=6) return {txt:"5 × (4 min jog / 1 min walk)",jog:20};
+  if(w<=8) return {txt:"3 × (8 min jog / 1 min walk)",jog:24};
+  if(w===9) return {txt:"2 × (12 min jog / 1 min walk)",jog:24};
+  if(w===10)return {txt:"2 × (15 min jog / 1 min walk)",jog:30};
+  return {txt:"30 min continuous jog",jog:30};
+}
+
+/* ============ dates ============ */
+function midnight(d){return new Date(d.getFullYear(),d.getMonth(),d.getDate());}
+function key(d){var m=d.getMonth()+1,dd=d.getDate();return d.getFullYear()+"-"+(m<10?"0":"")+m+"-"+(dd<10?"0":"")+dd;}
+function parseKey(s){var p=s.split("-");return new Date(+p[0],+p[1]-1,+p[2]);}
+var today=midnight(new Date()), TODAY=key(today);
+var dayNum=Math.round((today-START)/86400000);
+var week=Math.floor(dayNum/7)+1;
+var started=dayNum>=0, finished=dayNum>=WEEKS*7;
+var planWeek=Math.min(Math.max(week,1),WEEKS);
+function targetAt(w){return W_START-(W_START-W_END)*(Math.min(Math.max(w,0),WEEKS)/WEEKS);}
+
+/* ============ storage ============ */
+var LS=null, storeOk=true;
+try{ LS=window.localStorage; LS.setItem("ew.probe","1"); LS.removeItem("ew.probe"); }
+catch(e){ LS=null; storeOk=false; }
+function load(k,fb){ if(!LS) return fb; try{var v=LS.getItem(k); return v?JSON.parse(v):fb;}catch(e){return fb;} }
+function save(k,v){ if(!LS) return; try{LS.setItem(k,JSON.stringify(v));}catch(e){} }
+
+var state={
+  weights: load("ew.weights",{}),
+  foodAll: load("ew.food",{}),
+  doneAll: load("ew.done",{}),
+  dumbbells: load("ew.dumbbells",true),
+  food: [], done: {}
+};
+state.food = Array.isArray(state.foodAll[TODAY]) ? state.foodAll[TODAY] : [];
+(Array.isArray(state.doneAll[TODAY])?state.doneAll[TODAY]:[]).forEach(function(k){state.done[k]=true;});
+
+function prune(map,days){
+  var cut=new Date(today); cut.setDate(cut.getDate()-days);
+  Object.keys(map).forEach(function(k){ if(parseKey(k)<cut) delete map[k]; });
+}
+function persistFood(){ state.foodAll[TODAY]=state.food; prune(state.foodAll,70); save("ew.food",state.foodAll); }
+function persistDone(){ state.doneAll[TODAY]=Object.keys(state.done); prune(state.doneAll,21); save("ew.done",state.doneAll); }
+
+/* ============ food table ============ */
+/* per 100 g: kj, p (protein g). def = assumed grams for one serve.
+   u = grams for named units. Meats are raw weights. */
+function F(n,al,kj,p,def,u){return {n:n,al:al,kj:kj,p:p,def:def,u:u||{}};}
+var FOODS=[
+ F("Chicken breast",["chicken breast","chicken breasts","chicken fillet","chicken"],465,23.1,150,{piece:180,breast:180,fillet:180}),
+ F("Chicken thigh",["chicken thigh","chicken thighs"],500,20,120,{piece:90,thigh:90}),
+ F("Chicken leg",["chicken leg","chicken legs","drumstick","drumsticks","chicken drumstick"],900,18,100,{piece:100,leg:100}),
+ F("Chicken wing",["chicken wing","chicken wings"],1100,18,70,{piece:35,wing:35}),
+ F("Roast chicken",["roast chicken","rotisserie chicken","bbq chicken"],870,25,120,{}),
+ F("Turkey breast",["turkey breast","turkey"],450,24,120,{}),
+ F("Beef mince, lean",["lean beef mince","lean mince","5% mince","beef mince lean"],580,21,150,{}),
+ F("Beef mince",["beef mince","mince","ground beef"],980,18,150,{}),
+ F("Steak",["steak","beef steak","rump","porterhouse","scotch fillet"],700,22,200,{piece:200}),
+ F("Lamb chop",["lamb chop","lamb chops","lamb cutlet","lamb"],1150,18,180,{piece:90,chop:90}),
+ F("Pork chop",["pork chop","pork chops","pork"],800,21,150,{piece:150,chop:150}),
+ F("Pork tenderloin",["pork tenderloin","pork fillet"],500,22,150,{}),
+ F("Bacon",["bacon","bacon rasher","bacon rashers"],1500,23,50,{rasher:25,piece:25,slice:25}),
+ F("Sausage",["sausage","sausages","snag","snags"],1200,13,140,{piece:70,sausage:70}),
+ F("Salami",["salami","pepperoni","chorizo"],1700,20,30,{slice:8,piece:8}),
+ F("Ham",["ham"],500,18,60,{slice:20,piece:20}),
+ F("Kangaroo",["kangaroo","roo"],420,22,150,{}),
+ F("Salmon",["salmon"],900,20,150,{fillet:150,piece:150}),
+ F("Tuna, canned in water",["tuna","canned tuna","tinned tuna","tuna in water"],450,25,95,{can:95,tin:95}),
+ F("Tuna in oil",["tuna in oil"],800,24,95,{can:95,tin:95}),
+ F("White fish",["white fish","basa","cod","snapper","barramundi","fish fillet","fish"],400,20,150,{fillet:150,piece:150}),
+ F("Prawns",["prawns","prawn","shrimp"],350,20,100,{}),
+ F("Sardines",["sardines"],900,25,90,{can:90,tin:90}),
+ F("Egg",["egg","eggs","boiled egg","fried egg","scrambled eggs","poached egg","omelette"],600,12.6,100,{piece:50,egg:50}),
+ F("Greek yoghurt",["greek yoghurt","greek yogurt","plain yoghurt","yoghurt","yogurt"],400,10,200,{cup:250,tub:170,serve:200}),
+ F("Flavoured yoghurt",["flavoured yoghurt","fruit yoghurt","vanilla yoghurt"],400,5,170,{tub:170,cup:250}),
+ F("Cottage cheese",["cottage cheese"],420,12.5,100,{cup:220}),
+ F("Milk",["milk","full cream milk","whole milk"],270,3.4,250,{cup:250,glass:250}),
+ F("Skim milk",["skim milk","light milk","low fat milk"],150,3.5,250,{cup:250,glass:250}),
+ F("Almond milk",["almond milk","unsweetened almond milk"],55,0.5,250,{cup:250,glass:250,splash:50}),
+ F("Oat milk",["oat milk"],190,1,250,{cup:250,glass:250}),
+ F("Soy milk",["soy milk"],230,3.3,250,{cup:250,glass:250}),
+ F("Cheese",["cheese","cheddar","tasty cheese"],1700,25,30,{slice:20,piece:20}),
+ F("Feta",["feta"],1100,14,30,{}),
+ F("Parmesan",["parmesan","parmigiano"],1700,35,10,{tbsp:5}),
+ F("Cream",["cream","thickened cream"],1700,2,30,{tbsp:15}),
+ F("Butter",["butter"],3000,0.9,10,{tsp:5,tbsp:14}),
+ F("Whey protein",["whey","protein powder","whey isolate","whey protein","protein scoop"],1600,80,30,{scoop:30}),
+ F("Ice cream",["ice cream","icecream","gelato"],900,4,100,{scoop:50}),
+ F("Brown rice, cooked",["brown rice"],515,2.6,150,{cup:180}),
+ F("White rice, cooked",["white rice","rice","jasmine rice","basmati rice","steamed rice"],545,2.7,150,{cup:180}),
+ F("Rice, uncooked",["dry rice","uncooked rice","raw rice"],1520,7,50,{cup:185}),
+ F("Pasta, cooked",["pasta","spaghetti","penne","fettuccine","macaroni"],660,5.8,180,{cup:180}),
+ F("Noodles",["noodles","noodle","ramen","udon"],600,5,200,{}),
+ F("Wholemeal bread",["wholemeal bread","wholegrain bread","multigrain bread","brown bread","wholemeal toast","wholegrain toast","multigrain toast","wholemeal"],1000,9.5,36,{slice:36,piece:36}),
+ F("White bread",["white bread","bread","toast"],1060,8,36,{slice:36,piece:36}),
+ F("Sourdough",["sourdough"],1050,9,50,{slice:50,piece:50}),
+ F("Wrap",["wrap","tortilla","flatbread","pita","roti"],1200,8,60,{piece:60}),
+ F("Bagel",["bagel"],1150,11,90,{piece:90}),
+ F("Oats",["oats","porridge","rolled oats","oatmeal"],1600,13,50,{cup:90,serve:50}),
+ F("Weet-Bix",["weet-bix","weetbix","wheat biscuit"],1500,12,30,{biscuit:15,piece:15}),
+ F("Muesli",["muesli","granola"],1700,10,45,{cup:100,serve:45}),
+ F("Cereal",["cereal","cornflakes","breakfast cereal"],1600,8,40,{cup:40,bowl:50}),
+ F("Potato",["potato","potatoes","boiled potato","roast potato"],320,2,170,{medium:170,piece:170}),
+ F("Mashed potato",["mashed potato","mash"],450,2,200,{cup:210}),
+ F("Hot chips",["hot chips","chips","fries","french fries","wedges"],1200,3.4,150,{serve:150}),
+ F("Sweet potato",["sweet potato","kumara"],380,1.6,150,{medium:150,piece:150}),
+ F("Quinoa",["quinoa"],500,4.4,150,{cup:185}),
+ F("Couscous",["couscous"],480,3.8,150,{cup:160}),
+ F("Crackers",["crackers","cracker","sao","vita-weat","rice cakes"],1800,9,30,{piece:7,cracker:7}),
+ F("Corn chips",["corn chips","tortilla chips","doritos"],2100,7,50,{serve:50,packet:50}),
+ F("Chickpeas",["chickpeas","garbanzo"],700,8.9,150,{cup:160,can:240}),
+ F("Lentils",["lentils","lentil","dahl","dal"],480,9,150,{cup:200,can:240}),
+ F("Baked beans",["baked beans"],390,5,220,{can:220}),
+ F("Black beans",["black beans","kidney beans","beans"],550,8.9,150,{cup:170,can:240}),
+ F("Tofu",["tofu"],320,8,150,{}),
+ F("Hummus",["hummus","hommus"],1200,7.5,30,{tbsp:15}),
+ F("Mixed vegetables",["mixed vegetables","frozen vegetables","frozen veggies","vegetables","veggies","veg"],180,2.5,200,{cup:150,serve:200}),
+ F("Broccoli",["broccoli","broccolini"],140,2.8,100,{cup:90,head:300}),
+ F("Spinach",["spinach","baby spinach","rocket","kale"],100,2.9,30,{cup:30,handful:30}),
+ F("Carrot",["carrot","carrots"],170,0.9,80,{medium:70,piece:70}),
+ F("Salad",["salad","green salad","garden salad","mixed leaves"],80,1.5,100,{bowl:100,cup:50}),
+ F("Tomato",["tomato","tomatoes","cherry tomatoes"],75,0.9,120,{medium:120,piece:120}),
+ F("Cucumber",["cucumber"],65,0.7,100,{medium:150,piece:150}),
+ F("Capsicum",["capsicum","bell pepper","pepper"],110,1,120,{medium:120,piece:120}),
+ F("Onion",["onion","onions","red onion"],170,1.1,80,{medium:110,piece:110}),
+ F("Mushrooms",["mushroom","mushrooms"],90,3.1,80,{cup:70}),
+ F("Corn",["corn","sweetcorn","corn cob"],390,3.3,100,{cob:90,cup:160}),
+ F("Peas",["peas","green peas"],350,5,100,{cup:160}),
+ F("Avocado",["avocado","avo"],670,2,100,{medium:200,piece:200,half:100}),
+ F("Pumpkin",["pumpkin"],160,1.1,150,{cup:150}),
+ F("Zucchini",["zucchini","courgette"],70,1.2,150,{medium:150,piece:150}),
+ F("Green beans",["green beans"],130,1.8,100,{cup:125}),
+ F("Cabbage",["cabbage","coleslaw","slaw"],100,1.3,100,{cup:90}),
+ F("Lettuce",["lettuce","iceberg"],60,1.4,50,{cup:50}),
+ F("Banana",["banana","bananas"],390,1.1,118,{medium:118,piece:118}),
+ F("Apple",["apple","apples"],220,0.3,180,{medium:180,piece:180}),
+ F("Orange",["orange","oranges","mandarin"],200,0.9,180,{medium:180,piece:180}),
+ F("Mixed berries",["mixed berries","frozen berries","berries"],180,0.8,150,{cup:140,punnet:250}),
+ F("Strawberries",["strawberries","strawberry"],140,0.7,150,{cup:150,punnet:250}),
+ F("Blueberries",["blueberries","blueberry"],240,0.7,150,{cup:150,punnet:125}),
+ F("Mango",["mango"],250,0.8,165,{cup:165,medium:200,piece:200}),
+ F("Grapes",["grapes"],290,0.6,150,{cup:150}),
+ F("Watermelon",["watermelon","melon","rockmelon"],130,0.6,150,{cup:150}),
+ F("Pineapple",["pineapple"],210,0.5,165,{cup:165}),
+ F("Pear",["pear","pears"],240,0.4,180,{medium:180,piece:180}),
+ F("Kiwi fruit",["kiwi","kiwifruit"],260,1.1,75,{piece:75}),
+ F("Dates",["dates","date"],1180,2.5,30,{piece:8}),
+ F("Sultanas",["sultanas","raisins"],1250,3,30,{tbsp:15}),
+ F("Almonds",["almonds","almond"],2400,21,30,{handful:30}),
+ F("Peanuts",["peanuts","peanut"],2380,26,30,{handful:30}),
+ F("Cashews",["cashews","cashew"],2350,18,30,{handful:30}),
+ F("Walnuts",["walnuts","walnut"],2740,15,30,{handful:30}),
+ F("Mixed nuts",["mixed nuts","nuts","trail mix"],2500,20,30,{handful:30}),
+ F("Peanut butter",["peanut butter","almond butter","nut butter"],2500,25,16,{tbsp:16,tsp:6}),
+ F("Olive oil",["olive oil","oil","cooking oil","vegetable oil"],3700,0,14,{tbsp:14,tsp:5,splash:7}),
+ F("Nuttelex",["nuttelex","margarine","spread"],2500,0,10,{tsp:5,tbsp:14}),
+ F("Mayonnaise",["mayonnaise","mayo","aioli"],2700,1,15,{tbsp:15}),
+ F("Chia seeds",["chia","chia seeds","flaxseed","linseed"],1850,17,12,{tbsp:12}),
+ F("Vegemite",["vegemite","marmite"],820,25,5,{tsp:5,scrape:5,serve:5}),
+ F("Honey",["honey","maple syrup"],1300,0.3,15,{tsp:7,tbsp:21}),
+ F("Tomato sauce",["tomato sauce","ketchup"],480,1.2,17,{tbsp:17}),
+ F("Soy sauce",["soy sauce","tamari"],230,8,15,{tbsp:15,splash:8}),
+ F("BBQ sauce",["bbq sauce","barbecue sauce"],700,0.8,17,{tbsp:17}),
+ F("Sweet chilli sauce",["sweet chilli","sweet chilli sauce","chilli sauce","sriracha"],1100,0.5,17,{tbsp:17}),
+ F("Jam",["jam","marmalade"],1100,0.4,20,{tbsp:20}),
+ F("Stock cube",["stock cube","bouillon","stock"],900,10,10,{cube:10}),
+ F("Salad dressing",["dressing","salad dressing","vinaigrette"],1400,0.5,15,{tbsp:15}),
+ F("Black coffee",["black coffee","long black","espresso","americano","coffee"],10,0.2,240,{cup:240,mug:300}),
+ F("Flat white",["flat white","latte","cappuccino","coffee with milk"],220,3.2,220,{cup:220,regular:220,large:350}),
+ F("Mocha",["mocha","hot chocolate"],330,3,250,{cup:250,regular:250,large:400}),
+ F("Tea",["tea","green tea","herbal tea"],5,0,240,{cup:240,mug:300}),
+ F("Orange juice",["orange juice","juice","apple juice"],190,0.7,250,{glass:250,cup:250}),
+ F("Soft drink",["soft drink","coke","cola","lemonade","pepsi","fanta"],180,0,375,{can:375,glass:250,bottle:600}),
+ F("Diet soft drink",["diet coke","coke zero","coke no sugar","diet soft drink"],5,0,375,{can:375,bottle:600}),
+ F("Beer",["beer","lager","pale ale","ale"],150,0.4,375,{can:375,schooner:425,pint:570,bottle:330}),
+ F("Wine",["wine","red wine","white wine","prosecco","champagne"],350,0.1,150,{glass:150,bottle:750}),
+ F("Spirits",["vodka","whisky","whiskey","gin","rum","tequila","spirits"],950,0,30,{shot:30,nip:30}),
+ F("Protein shake",["protein shake"],400,25,300,{cup:300,glass:300}),
+ F("Smoothie",["smoothie"],400,4,300,{cup:300,glass:300}),
+ F("Water",["water","sparkling water","soda water"],0,0,250,{cup:250,glass:250,bottle:600}),
+ F("Energy drink",["energy drink","red bull","mother","monster"],190,0,250,{can:250}),
+ F("Chocolate",["chocolate","choc","dairy milk","cadbury"],2200,7,25,{block:25,piece:10,bar:50}),
+ F("Biscuit",["biscuit","biscuits","cookie","cookies","tim tam"],2000,6,30,{piece:15,biscuit:15}),
+ F("Cake",["cake","slice of cake","banana bread"],1500,5,80,{slice:80,piece:80}),
+ F("Muffin",["muffin"],1600,6,110,{piece:110}),
+ F("Croissant",["croissant","pastry","danish"],1800,8,60,{piece:60}),
+ F("Potato chips",["crisps","packet of chips","chip packet","smiths","doritos"],2200,6,50,{packet:50,bag:50,serve:50}),
+ F("Pizza",["pizza"],1100,11,200,{slice:100,piece:100}),
+ F("Burger",["burger","cheeseburger","hamburger","big mac"],1150,14,230,{piece:230}),
+ F("Kebab",["kebab","souvlaki","gyros"],900,12,350,{piece:350}),
+ F("Sushi",["sushi","sushi roll","hand roll"],600,6,180,{piece:35,roll:180}),
+ F("Sandwich",["sandwich","sanga","sub","roll"],1000,12,200,{piece:200}),
+ F("Toasted sandwich",["toasted sandwich","toastie","jaffle"],1200,14,180,{piece:180}),
+ F("Meat pie",["meat pie","pie"],1150,9,180,{piece:180}),
+ F("Sausage roll",["sausage roll"],1400,8,130,{piece:130}),
+ F("Fried rice",["fried rice"],700,6,200,{cup:200,serve:300}),
+ F("Curry",["curry","butter chicken","tikka masala","massaman"],700,9,300,{serve:300}),
+ F("Stir fry",["stir fry","stirfry"],500,10,350,{serve:350}),
+ F("Pad thai",["pad thai","noodle stir fry"],800,10,350,{serve:350}),
+ F("Nachos",["nachos"],1300,10,300,{serve:300}),
+ F("Fish and chips",["fish and chips"],1100,12,350,{serve:350}),
+ F("Popcorn",["popcorn"],1700,10,25,{cup:10,bag:50}),
+ F("Muesli bar",["muesli bar","granola bar"],1700,5,35,{bar:35,piece:35}),
+ F("Protein bar",["protein bar"],1500,30,60,{bar:60,piece:60}),
+ F("Chicken parmigiana",["chicken parmigiana","parmigiana","parma","chicken parmi","schnitzel"],900,15,350,{piece:350,serve:350})
+];
+
+/* units */
+var GRAM_UNITS={g:1,gs:1,gram:1,grams:1,gm:1,gms:1,kg:1000,kgs:1000,kilo:1000,kilos:1000,
+                ml:1,mls:1,l:1000,litre:1000,litres:1000,liter:1000,liters:1000};
+var SIZES={small:0.75,medium:1,med:1,large:1.35,big:1.35,regular:1,huge:1.6};
+var GENERIC={cup:150,cups:150,tbsp:15,tbsps:15,tablespoon:15,tablespoons:15,
+             tsp:5,tsps:5,teaspoon:5,teaspoons:5,slice:30,slices:30,scoop:30,scoops:30,
+             piece:0,pieces:0,handful:30,handfuls:30,can:220,cans:220,tin:220,tins:220,
+             serve:0,serves:0,serving:0,servings:0,bowl:200,bowls:200,glass:250,glasses:250,
+             punnet:250,bottle:500,bottles:500,rasher:25,rashers:25,bar:40,bars:40,
+             packet:50,packets:50,bag:50,block:25,blocks:25,cob:90,cube:10,shot:30,shots:30,
+             biscuit:15,biscuits:15,roll:180,rolls:180,schooner:425,pint:570,mug:300,
+             fillet:150,fillets:150,breast:180,thigh:90,leg:100,wing:35,chop:90,egg:50,eggs:50,
+             sausage:70,head:300,half:0,splash:10,scrape:5,nip:30};
+var WORDNUM={a:1,an:1,one:1,two:2,three:3,four:4,five:5,six:6,seven:7,eight:8,nine:9,ten:10,
+             twelve:12,half:0.5,quarter:0.25,couple:2,few:3,several:3};
+
+function singular(u){
+  if(GENERIC.hasOwnProperty(u)||GRAM_UNITS.hasOwnProperty(u)||SIZES.hasOwnProperty(u)) return u;
+  if(u.slice(-1)==="s" && (GENERIC.hasOwnProperty(u.slice(0,-1))||SIZES.hasOwnProperty(u.slice(0,-1)))) return u.slice(0,-1);
+  return u;
+}
+function esc(s){return s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");}
+
+function matchFood(txt){
+  var best=null,bestLen=0;
+  for(var i=0;i<FOODS.length;i++){
+    for(var j=0;j<FOODS[i].al.length;j++){
+      var a=FOODS[i].al[j];
+      if(a.length<=bestLen) continue;
+      var re=new RegExp("(^|[^a-z])"+esc(a)+"(e?s)?([^a-z]|$)");
+      if(re.test(txt)){ best=FOODS[i]; bestLen=a.length; }
+    }
+  }
+  return best;
+}
+
+var QTY_RE=new RegExp(
+ "(?:^|[^a-z0-9])(\\d+\\s*\\/\\s*\\d+|\\d+(?:\\.\\d+)?|"+Object.keys(WORDNUM).join("|")+")"+
+ "\\s*([a-z]+)?","i");
+
+var ENERGY_RE=/(\d+(?:\.\d+)?)\s*(kj|kilojoules?|cal|cals|calories?|kcal)\b/;
+
+function parseFrag(frag){
+  var txt=" "+frag.toLowerCase().replace(/[^a-z0-9.\/ ]/g," ").replace(/\s+/g," ")+" ";
+
+  /* "450kj of salami" — the stated energy wins, and the food gives the protein */
+  var em=txt.match(ENERGY_RE);
+  var statedKj=null;
+  if(em){
+    var n=parseFloat(em[1]);
+    statedKj = /^k?cal/.test(em[2]) ? Math.round(n*4.184) : Math.round(n);
+    txt=" "+txt.replace(ENERGY_RE," ").replace(/\s+/g," ").trim()+" ";
+  }
+
+  var food=matchFood(txt);
+  if(!food){
+    if(statedKj!==null) return {food:{n:frag.trim().replace(ENERGY_RE,"").trim()||"Food",kj:0,p:0},
+                                grams:0, assumed:false, kj:statedKj, protein:0, stated:true};
+    return null;
+  }
+  if(statedKj!==null){
+    var g = food.kj>0 ? statedKj/food.kj*100 : 0;
+    return {food:food, grams:Math.round(g), assumed:false, stated:true,
+            kj:statedKj, protein:Math.round(food.p*g/100*10)/10};
+  }
+
+  var qty=null, unit=null, size=1, assumed=false;
+  var m=txt.match(QTY_RE);
+  if(m){
+    var raw=m[1];
+    if(/\//.test(raw)){ var pp=raw.split("/"); qty=parseFloat(pp[0])/parseFloat(pp[1]); }
+    else if(WORDNUM.hasOwnProperty(raw)) qty=WORDNUM[raw];
+    else qty=parseFloat(raw);
+    if(m[2]) unit=singular(m[2]);
+  }
+  /* a size word straight after the number is a size, not a unit */
+  if(unit && SIZES.hasOwnProperty(unit)){ size=SIZES[unit]; unit=null; }
+  else { var sm=txt.match(/\b(small|medium|med|large|big|huge)\b/); if(sm) size=SIZES[sm[1]]; }
+  /* a bare unit with no number: "a cup of rice" handled above; "cup of rice" here */
+  if(!unit){
+    var um=txt.match(/\b(cup|cups|tbsp|tablespoon|tablespoons|tsp|teaspoon|teaspoons|slice|slices|scoop|scoops|handful|can|tin|bowl|glass|punnet|bottle|rasher|packet|bar|block|shot|fillet|breast|thigh|piece|pieces|serve|serving)\b/);
+    if(um){ unit=singular(um[1]); if(qty===null){ qty=1; assumed=true; } }
+  }
+
+  var grams;
+  if(unit && GRAM_UNITS.hasOwnProperty(unit)){
+    grams=(qty===null?food.def:qty)*GRAM_UNITS[unit];
+    if(qty===null) assumed=true;
+  } else {
+    var per;
+    if(unit && food.u.hasOwnProperty(unit)) per=food.u[unit];
+    else if(unit && GENERIC[unit]) per=GENERIC[unit];
+    else per=food.u.piece||food.def;
+    if(!per) per=food.def;
+    if(qty===null){ qty=1; assumed=true; }
+    grams=qty*per*size;
+  }
+  if(!(grams>0)) { grams=food.def; assumed=true; }
+  grams=Math.round(grams);
+
+  return {
+    food:food, grams:grams, assumed:assumed,
+    kj: Math.round(food.kj*grams/100),
+    protein: Math.round(food.p*grams/100*10)/10
+  };
+}
+
+function estimate(text){
+  var frags=text.toLowerCase()
+    .replace(/\+/g,",").replace(/&/g,",")
+    .replace(/\b(and|with|plus|on|topped|alongside)\b/g,",")
+    .replace(/[\n;]/g,",")
+    .split(",").map(function(s){return s.trim();}).filter(function(s){return s.length>1;});
+  if(!frags.length) frags=[text.trim()];
+  var hits=[],misses=[];
+  frags.forEach(function(f){
+    var r=parseFrag(f);
+    if(r) hits.push(r); else misses.push(f);
+  });
+  return {hits:hits,misses:misses};
+}
+
+/* ============ render ============ */
+function paintHead(){
+  document.getElementById("today").textContent=DAYNAME[today.getDay()]+" "+today.getDate()+" "+MONTH[today.getMonth()];
+  var h=document.getElementById("phase"), s=document.getElementById("phasesub");
+  if(!started){
+    var n=-dayNum;
+    h.textContent = n===1?"Starts tomorrow":"Starts in "+n+" days";
+    s.textContent = "Week 1 opens Monday with Session A. Baseline weigh-ins count from today.";
+  } else if(finished){
+    h.textContent="Eleven weeks done";
+    s.textContent="Target was 66 kg and a 30-minute jog. Compare the photos, not just the scale.";
+  } else {
+    h.textContent="Week "+planWeek+" · day "+((dayNum%7)+1);
+    s.textContent="Target by Sunday: "+targetAt(planWeek).toFixed(1)+" kg · "+KJ_TARGET.toLocaleString()+" kJ · "+PRO_LO+"–"+PRO_HI+" g protein";
+  }
+  var bars=document.getElementById("bars"),f=document.createDocumentFragment();
+  for(var i=1;i<=WEEKS;i++){
+    var b=document.createElement("i");
+    if(started&&i<planWeek) b.className="on";
+    if(started&&!finished&&i===planWeek) b.className="now";
+    f.appendChild(b);
+  }
+  bars.appendChild(f);
+}
+function sessionFor(dow,w,db){
+  var r=runBlock(w);
+  switch(dow){
+    case 1: return {name:"Session A",tag:"strength",sub:"Lower back, core and legs. The posterior-chain work is what pulls your pelvis back toward neutral.",list:(db?A_DB:A_BW)};
+    case 3: return {name:"Session C",tag:"strength",sub:"Arms, abs and back. Second curl session of the week, 48 hours clear of Monday.",list:(db?C_DB:C_BW)};
+    case 2:
+    case 4: return {name:"Run-walk",tag:"week "+w,sub:"Jog at a pace where you could still speak a full sentence. If you can't, walk.",list:[
+              {id:"r0",nm:"Warm-up walk",px:"5 min"},
+              {id:"r1",nm:r.txt,px:r.jog+" min jogging in total"},
+              {id:"r2",nm:"Cool-down walk",px:"5 min"}]};
+    case 6: return {name:"Run-walk + core",tag:"week "+w,sub:"Same run as midweek, then two core sets.",list:[
+              {id:"r0",nm:"Warm-up walk",px:"5 min"},
+              {id:"r1",nm:r.txt,px:r.jog+" min jogging in total"},
+              {id:"r2",nm:"Cool-down walk",px:"5 min"}].concat(SAT_CORE)};
+    case 5: return {name:"Rest day",tag:"recovery",sub:"Nothing scheduled. An easy walk is optional, not owed.",list:[
+              {id:"f1",nm:"Easy walk",px:"20 min · optional"}]};
+    default:return {name:"Rest and prep",tag:"sunday",sub:"The cook session is what keeps next week on the rails.",list:[
+              {id:"u1",nm:"Cook the week's chicken, rice and veg",px:"14 portions"},
+              {id:"u2",nm:"Average this week's weigh-ins",px:"7 mornings"},
+              {id:"u3",nm:"Tape measure at the navel",px:"relaxed, after a breath out"}]};
+  }
+}
+function preSession(){
+  var n=-dayNum;
+  return {name:"Before week 1",tag:"prep",sub:"Nothing to train yet. These are the things that make Monday easy.",list:[
+    {id:"x1",nm:"Weigh in tomorrow morning",px:"baseline for the 7-day average"},
+    {id:"x2",nm:"Cook the first week of chicken, rice and veg",px:"14 portions"},
+    {id:"x3",nm:"Side photo and tape at the navel",px:"your week 0 record"},
+    {id:"x4",nm:"Running shoes and dumbbells sorted",px:n+" day"+(n===1?"":"s")+" to go"}]};
+}
+function postSession(){
+  return {name:"Plan complete",tag:"week 11 done",sub:"Keep the posture routine and the runs going while you decide what comes next.",list:[
+    {id:"z1",nm:"Final weigh-in average",px:"7 mornings, same conditions"},
+    {id:"z2",nm:"Side photo and wall test",px:"against your week 0 record"},
+    {id:"z3",nm:"30-minute jog",px:"the week 11 target"}]};
+}
+function rowEl(ex,group){
+  var id=group+"-"+ex.id;
+  var row=document.createElement("div");
+  row.className="row"+(state.done[id]?" done":"");
+  var cb=document.createElement("input");
+  cb.type="checkbox"; cb.id="cb-"+id; cb.checked=!!state.done[id];
+  cb.addEventListener("change",function(){
+    if(cb.checked) state.done[id]=true; else delete state.done[id];
+    row.classList.toggle("done",cb.checked);
+    persistDone();
+  });
+  var lab=document.createElement("label"); lab.htmlFor=cb.id;
+  var nm=document.createElement("div"); nm.className="nm"; nm.textContent=ex.nm;
+  var px=document.createElement("div"); px.className="px"; px.textContent=ex.px;
+  lab.appendChild(nm); lab.appendChild(px);
+  row.appendChild(cb); row.appendChild(lab);
+  return row;
+}
+function paintSession(){
+  var ses = !started?preSession() : finished?postSession() : sessionFor(today.getDay(),planWeek,state.dumbbells);
+  document.getElementById("sessionName").textContent=ses.name;
+  document.getElementById("sessionTag").textContent=ses.tag;
+  document.getElementById("sessionSub").textContent=ses.sub;
+  var box=document.getElementById("sessionRows"); box.textContent="";
+  ses.list.forEach(function(ex){ box.appendChild(rowEl(ex,"s")); });
+  var strength=started&&!finished&&(today.getDay()===1||today.getDay()===3);
+  document.getElementById("swapWrap").hidden=!strength;
+  document.getElementById("swapLabel").textContent=state.dumbbells?"Using dumbbells":"Bodyweight only";
+  document.getElementById("swapBtn").textContent=state.dumbbells?"Switch to bodyweight":"Switch to dumbbells";
+}
+function paintPosture(){
+  var box=document.getElementById("postureRows"); box.textContent="";
+  POSTURE.forEach(function(ex){ box.appendChild(rowEl(ex,"p")); });
+}
+function sortedWeights(){
+  return Object.keys(state.weights).sort().map(function(k){return {k:k,d:parseKey(k),kg:state.weights[k]};});
+}
+function avgWindow(end,days){
+  var sum=0,n=0,cut=new Date(end); cut.setDate(cut.getDate()-(days-1));
+  sortedWeights().forEach(function(e){ if(e.d>=cut&&e.d<=end){sum+=e.kg;n++;} });
+  return n?sum/n:null;
+}
+function paintWeight(){
+  var list=sortedWeights();
+  document.getElementById("sToday").textContent=state.weights[TODAY]?state.weights[TODAY].toFixed(1):"—";
+  var avg=avgWindow(today,7);
+  document.getElementById("sAvg").textContent=avg?avg.toFixed(1):"—";
+  var tw=started&&!finished?targetAt(planWeek):W_END;
+  document.getElementById("sTarget").textContent=tw.toFixed(1);
+  document.getElementById("sTargetLab").textContent=started&&!finished?"By Sunday":"Final target";
+  var note=document.getElementById("kgNote");
+  if(!list.length){ note.className="note"; note.textContent="No weigh-ins logged yet. Log one to start the trend."; }
+  else if(!avg){ note.className="note"; note.textContent="Nothing in the last 7 days. The average needs recent mornings."; }
+  else if(list.length<4){ note.className="note"; note.textContent="Average over "+list.length+" morning"+(list.length>1?"s":"")+" so far. It settles once you have a full week."; }
+  else{
+    var prev=avgWindow(new Date(today.getFullYear(),today.getMonth(),today.getDate()-7),7);
+    var diff=avg-tw, txt="";
+    if(prev!==null){ var ch=avg-prev;
+      txt=(ch<0?"Down "+Math.abs(ch).toFixed(2)+" kg":ch>0?"Up "+ch.toFixed(2)+" kg":"Level")+" on last week's average. ";
+    }
+    if(!started) txt+="Baseline so far.";
+    else if(diff>1) txt+="That's "+diff.toFixed(1)+" kg behind the week's target — check the adjustment rules before changing anything.";
+    else if(diff<-1) txt+="That's "+Math.abs(diff).toFixed(1)+" kg ahead of target. Faster than 0.8 kg a week costs muscle.";
+    else txt+="On track for "+tw.toFixed(1)+" kg.";
+    note.className="note"; note.textContent=txt;
+  }
+  paintSpark(list);
+}
+function paintSpark(list){
+  var svg=document.getElementById("spark"); svg.textContent="";
+  if(list.length<2){ svg.style.display="none"; return; }
+  svg.style.display="block";
+  var pts=list.slice(-42), kgs=pts.map(function(p){return p.kg;});
+  var lo=Math.min.apply(null,kgs), hi=Math.max.apply(null,kgs);
+  if(hi-lo<1){var mid=(hi+lo)/2; lo=mid-0.5; hi=mid+0.5;}
+  var pad=(hi-lo)*0.18; lo-=pad; hi+=pad;
+  var W=300,H=52,T=6,B=46;
+  function x(i){return pts.length===1?W/2:(i/(pts.length-1))*(W-4)+2;}
+  function y(v){return B-((v-lo)/(hi-lo))*(B-T);}
+  var d="";
+  pts.forEach(function(p,i){ d+=(i?" L":"M")+x(i).toFixed(1)+" "+y(p.kg).toFixed(1); });
+  var a=d+" L"+x(pts.length-1).toFixed(1)+" "+H+" L"+x(0).toFixed(1)+" "+H+" Z";
+  var ns="http://www.w3.org/2000/svg";
+  function el(t,at){var e=document.createElementNS(ns,t);for(var k in at)e.setAttribute(k,at[k]);return e;}
+  svg.appendChild(el("path",{d:a,fill:"var(--accent)",opacity:"0.1"}));
+  svg.appendChild(el("path",{d:d,fill:"none",stroke:"var(--accent)","stroke-width":"1.6",
+    "stroke-linejoin":"round","stroke-linecap":"round","vector-effect":"non-scaling-stroke"}));
+  svg.appendChild(el("circle",{cx:x(pts.length-1),cy:y(pts[pts.length-1].kg),r:"2.6",
+    fill:"var(--accent)","vector-effect":"non-scaling-stroke"}));
+}
+function paintFood(){
+  var kj=0,pro=0;
+  state.food.forEach(function(it){kj+=it.kj||0;pro+=it.protein||0;});
+  kj=Math.round(kj); pro=Math.round(pro);
+  document.getElementById("kjLab").textContent=kj.toLocaleString()+" / "+KJ_TARGET.toLocaleString()+" kJ";
+  document.getElementById("proLab").textContent=pro+" / "+PRO_LO+"–"+PRO_HI+" g";
+  var kf=document.getElementById("kjFill");
+  kf.style.width=Math.min(100,(kj/KJ_TARGET)*100)+"%";
+  kf.className="fill"+(kj>KJ_TARGET?" over":"");
+  var pf=document.getElementById("proFill");
+  pf.style.width=Math.min(100,(pro/PRO_HI)*100)+"%"; pf.className="fill g";
+  document.getElementById("proBand").style.left=((PRO_LO/PRO_HI)*100)+"%";
+
+  var box=document.getElementById("foodItems"); box.textContent="";
+  state.food.forEach(function(it,i){
+    var row=document.createElement("div"); row.className="item";
+    var t=document.createElement("div"); t.className="t"; t.textContent=it.label||"Food";
+    if(it.sub){var s=document.createElement("small"); s.textContent=it.sub; t.appendChild(s);}
+    var v=document.createElement("div"); v.className="v";
+    v.textContent=Math.round(it.kj||0).toLocaleString()+" kJ · "+Math.round(it.protein||0)+"g";
+    var x=document.createElement("button"); x.className="x"; x.type="button";
+    x.setAttribute("aria-label","Remove "+(it.label||"item")); x.textContent="×";
+    x.addEventListener("click",function(){ state.food.splice(i,1); persistFood(); paintFood(); });
+    row.appendChild(t); row.appendChild(v); row.appendChild(x);
+    box.appendChild(row);
+  });
+  var note=document.getElementById("foodNote");
+  if(!state.food.length){ note.className="note"; note.textContent="Nothing logged today."; return; }
+  var left=KJ_TARGET-kj;
+  var msg=left>0?left.toLocaleString()+" kJ left today.":Math.abs(left).toLocaleString()+" kJ over target.";
+  if(pro<PRO_LO) msg+=" Protein is "+(PRO_LO-pro)+" g short — that's the one to fill first.";
+  note.className="note"+(left<0?" warn":"");
+  note.textContent=msg;
+}
+
+/* ============ wiring ============ */
+paintHead(); paintSession(); paintPosture(); paintWeight(); paintFood();
+if(!storeOk){
+  document.getElementById("storeNote").textContent="This browser isn't saving data, so today's entries will be lost on reload.";
+} else {
+  document.getElementById("storeNote").textContent="Saved on this device only.";
+  /* ask the browser not to evict this data */
+  try{
+    if(navigator.storage && navigator.storage.persist) navigator.storage.persist();
+  }catch(e){}
+}
+
+document.getElementById("swapBtn").addEventListener("click",function(){
+  state.dumbbells=!state.dumbbells; save("ew.dumbbells",state.dumbbells); paintSession();
+});
+document.getElementById("kgSave").addEventListener("click",function(){
+  var el=document.getElementById("kgInput"), v=parseFloat(el.value);
+  if(!(v>=30&&v<=200)){ el.focus(); return; }
+  state.weights[TODAY]=Math.round(v*10)/10; el.value="";
+  save("ew.weights",state.weights); paintWeight();
+});
+document.getElementById("kgInput").addEventListener("keydown",function(e){
+  if(e.key==="Enter") document.getElementById("kgSave").click();
+});
+document.getElementById("manualBtn").addEventListener("click",function(){
+  var r=document.getElementById("manualRow"); r.classList.toggle("hidden");
+  if(!r.classList.contains("hidden")) document.getElementById("mLabel").focus();
+});
+document.getElementById("mSave").addEventListener("click",function(){
+  var l=document.getElementById("mLabel"),k=document.getElementById("mKj"),p=document.getElementById("mPro");
+  var kj=parseFloat(k.value)||0, pro=parseFloat(p.value)||0;
+  if(!l.value.trim()&&!kj){ l.focus(); return; }
+  state.food.push({label:l.value.trim()||"Food",kj:kj,protein:pro,sub:""});
+  persistFood(); paintFood();
+  l.value="";k.value="";p.value="";
+});
+document.getElementById("foodAdd").addEventListener("click",function(){
+  var ta=document.getElementById("foodInput"), txt=ta.value.trim();
+  var note=document.getElementById("foodNote");
+  if(!txt){ ta.focus(); return; }
+  var res=estimate(txt);
+  if(!res.hits.length){
+    note.className="note warn";
+    note.textContent="Couldn't recognise that. Try naming the food plainly (\"200g chicken breast\"), or enter the kJ yourself.";
+    document.getElementById("manualRow").classList.remove("hidden");
+    return;
+  }
+  res.hits.forEach(function(h){
+    state.food.push({
+      label:h.food.n,
+      kj:h.kj, protein:h.protein,
+      sub: h.stated ? (h.grams?"about "+h.grams+" g · your figure":"your figure")
+                    : h.grams+" g"+(h.assumed?" · assumed one serve":"")
+    });
+  });
+  persistFood(); paintFood(); ta.value="";
+  if(res.misses.length){
+    note.className="note warn";
+    note.textContent="Added "+res.hits.length+" item"+(res.hits.length>1?"s":"")+
+      ". Didn't recognise: "+res.misses.join(", ")+". Add those with \"Enter kJ myself\".";
+    document.getElementById("manualRow").classList.remove("hidden");
+  }
+});
+
+/* backup / restore */
+document.getElementById("backupBtn").addEventListener("click",function(){
+  var data={v:1,weights:state.weights,food:state.foodAll,done:state.doneAll,dumbbells:state.dumbbells};
+  var blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement("a");
+  a.href=url; a.download="eleven-weeks-"+TODAY+".json";
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(function(){URL.revokeObjectURL(url);},2000);
+});
+document.getElementById("restoreBtn").addEventListener("click",function(){
+  document.getElementById("restoreFile").click();
+});
+document.getElementById("restoreFile").addEventListener("change",function(e){
+  var f=e.target.files&&e.target.files[0]; if(!f) return;
+  var fr=new FileReader();
+  fr.onload=function(){
+    try{
+      var d=JSON.parse(fr.result);
+      if(d.weights) state.weights=d.weights;
+      if(d.food) state.foodAll=d.food;
+      if(d.done) state.doneAll=d.done;
+      if(typeof d.dumbbells==="boolean") state.dumbbells=d.dumbbells;
+      state.food=Array.isArray(state.foodAll[TODAY])?state.foodAll[TODAY]:[];
+      state.done={};
+      (Array.isArray(state.doneAll[TODAY])?state.doneAll[TODAY]:[]).forEach(function(k){state.done[k]=true;});
+      save("ew.weights",state.weights); save("ew.food",state.foodAll);
+      save("ew.done",state.doneAll); save("ew.dumbbells",state.dumbbells);
+      paintSession(); paintPosture(); paintWeight(); paintFood();
+      document.getElementById("storeNote").textContent="Backup restored.";
+    }catch(err){
+      document.getElementById("storeNote").textContent="That file couldn't be read.";
+    }
+  };
+  fr.readAsText(f);
+  e.target.value="";
+});
+})();
+</script>
+</body>
+</html>
